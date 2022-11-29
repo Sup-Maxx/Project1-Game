@@ -1,5 +1,6 @@
 //     <canvas id="canvas" width="500" height="650"></canvas>
 //     (x, y, width, heigth)
+//      first try for the github push
 
 
 canvasWidth = canvas.width
