@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Styling/style.css">
+    <title>Bones Hunt 🦴</title>
+</head>
+<body>
+    <div>
+        <div id="text">
+            <h1>Bones Hunt 🦴</h1>
+            <button id="start-game" onclick="game.startGame()"> Start</button>
+            <button id="restart" onClick="window.location.reload();">Restart</button>
+
+        </div>
+
+        <div id="game">
+            <canvas id="canvas" width="500" height="650"></canvas>
+            <h2>Ready to try your luck?</h2>
+        </div>
+
+        <div id="controls">
+            <img id="wasd-buttons" src="./Images/wasd-buttons.png" style="display:none">
+
+        </div>
+    </div>
+    <script src="./JavaScript/logic.js"></script>
+    <!-- button onclick -> startGame() -->
+</body>
+</html>
