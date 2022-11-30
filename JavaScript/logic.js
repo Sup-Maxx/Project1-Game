@@ -1,6 +1,7 @@
 //     <canvas id="canvas" width="500" height="650"></canvas>
 //     (x, y, width, heigth)
 //      first try for the github push
+//      second try to push
 
 
 canvasWidth = canvas.width
@@ -88,14 +89,6 @@ class Game {
             }, 3000);
         } */
     }
-
-    /* 
-    loop to create
-    create and push to array
-    every arrow in array moves like this:
-
-     
-    */
 } 
 const game = new Game ()
 
@@ -324,8 +317,7 @@ class Platform {
 //ground platform
 const platform0 = new Platform(500, 10, 0, 640, "darkgreen")
 
-// big mega update funciton 
-// function that refreshes canvas with all content
+// Update / loop / refresh
 function updateCanvas() { 
     setInterval(() => {
         //cleans the canvas
