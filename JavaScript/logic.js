@@ -1,11 +1,9 @@
 //     <canvas id="canvas" width="500" height="650"></canvas>
-//     (x, y, width, heigth)
-//      first try for the github push
-//      second try to push
-
 
 canvasWidth = canvas.width
 canvasHeight = canvas.height
+
+let seconds = 60 
 
 class Game {
     constructor() {
@@ -14,8 +12,6 @@ class Game {
         this.playChar = null
         this.enemy = null
         this.projectile = null
-
-        this.quiverOfArrows = []
     } 
 
     startGame() {
@@ -35,6 +31,10 @@ class Game {
             this.drawPlayer()      
         }
     } 
+
+    stopGame() {
+        clearInterval(updateCanvas())
+    }
 
     // function that draws a character on the canvas
     drawPlayer() {  
@@ -65,29 +65,6 @@ class Game {
             this.projectile.width,
             this.projectile.height
         )
-    }
-
-    
-
-    moreArrows() {
-        this.quiverOfArrows.forEach(() => {
-            this.ctx.drawImage(
-                this.projectile.arrow,
-                arrow.posX,
-                arrow.posY,
-                arrow.width,
-                arrow.height,
-            );
-            if (arrow.posY > canvasHeight) {
-                this.quiverOfArrows.shift()
-            }
-        })
-
-        /* for (let i=0; i<this.quiverOfArrows.length; i++) {
-            setInterval(() => {
-                this.quiverOfArrows.push(new Projectile(10, 50, Math.floor(Math.random()*450), 20))
-            }, 3000);
-        } */
     }
 } 
 const game = new Game ()
@@ -127,7 +104,6 @@ class Timer {
     }
 
     decrement() {
-        let seconds = 60
         setInterval(() => {
             this.time = seconds
             seconds--
@@ -152,6 +128,7 @@ class Live {
         game.ctx.fillText(this.lives, 30, 80)
     }
 }
+
 myLives = new Live ("20px", "Arial", 100, 100)
 
 class Character {
@@ -197,12 +174,16 @@ class Character {
         // to the right D
         if (keys[68] == true) this.speedX = this.maxSpeed.x; 
         // to the left A
-        if (keys[65] == true) {this.speedX = -this.maxSpeed.x; }
+        if (keys[65] == true) this.speedX = -this.maxSpeed.x;
         // to the top W
         if (keys[87] == true) this.speedY = -this.maxSpeed.y; 
         // to the bottom S
         if (keys[83] == true) this.speedY = this.maxSpeed.y; 
-        // add "Space" to shoot
+        //start the game with "Enter"
+        if(keys[13] == true) {
+            game.startGame()
+            document.querySelector("h2").style.display="none"
+        }
     }
 
     stopControl() {
@@ -249,7 +230,6 @@ class Character {
                 myLives.lives = "You just died 💔 I'm sowwy 😢"
             } 
         }
-        
     }
 }
 
@@ -260,6 +240,7 @@ class Enemy extends Character {
     constructor(width, height, posX, posY) {
         super (width, height, posX, posY)  
     }
+
     drawCharacter() {
         const enemy = new Image()
         enemy.src = "./Images/enemy-skeleton.png"
@@ -267,7 +248,6 @@ class Enemy extends Character {
     }
 }
 const skeleton = new Enemy(50, 50, Math.floor(Math.random()*450), Math.floor(Math.random()*600))
-
 
 class Projectile extends Character {
     constructor(width, height, posX, posY) {
@@ -327,8 +307,8 @@ function updateCanvas() {
         //score + lives + timer
         myScore.update()
         myLives.update()
-        myTimer.update()
-        myTimer.decrement()
+        //myTimer.update()
+        //myTimer.decrement()
         //canvas Collision check
         player.canvasCollision()
         //player new position + collision check
@@ -340,13 +320,24 @@ function updateCanvas() {
         game.drawPlayer()
         game.drawEnemy()
         game.drawProjectile()
-        
-        game.moreArrows()
-        
         //draw ground platform
         platform0.drawPlatform()
     }, 20)
 } 
+
+let timer 
+let timerElement = document.getElementById("timer")
+
+function count(){
+    let sec = 59
+    timer = setInterval(() => {
+       timerElement.innerHTML = sec 
+       sec--
+       //is it possible to create "continue the count" button?
+    }, 1000);
+}
+
+
 
 
 let keys = [];
@@ -362,8 +353,25 @@ window.addEventListener("keydown", function (e) {
 
 window.onload = () => {
     document.getElementById("start-game").onclick = () => {
-        document.querySelector("h2").style.display="none"
+        document.querySelector("h2").style.display="none";
+        document.querySelector("p").style.display="block";
         game.startGame()
-    }
+        count()
+        
+    }  
+}
+
+/* decrement() {
+        let seconds =
+        setInterval(() => {
+            this.time = seconds
+            seconds--
+        }, 1000);
+    } */
+
+function checkGameOver() {
     
+    if (killCollision() == true) {
+        game.stop()
+    }
 }

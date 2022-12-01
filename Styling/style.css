@@ -27,13 +27,13 @@ h1, h2 {
 h1 {
     position: absolute;
     top: 40%;
-    left: 10%;
+    left: 16.5%;
     transform: translate(-50%, -50%);
 }
 
 h2 {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -41,7 +41,7 @@ h2 {
 #start-game {
     position: absolute;
     top: 50%;
-    left: 10%;
+    left: 15%;
     transform: translate(-50%, -50%);
 
     background-color: green;
@@ -59,7 +59,7 @@ h2 {
 #restart {
     position: absolute;
     top:55%;
-    left: 10%;
+    left: 15%;
     transform: translate(-50%, -50%);
 
     background-color: green;
@@ -71,4 +71,12 @@ h2 {
 #restart:hover {
     transition-duration: 0.3s;
     background-color: red;
+}
+
+#timer {
+    font-size: 25px;
+
+    position: absolute;
+    top: 7%;
+    left: 63.5%;
 }
