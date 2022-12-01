@@ -8,11 +8,16 @@
     <title>Bones Hunt 🦴</title>
 </head>
 <body>
-    <div>
-        <div id="text">
+    <div id="container">
+
+        <div id="intro">
+
             <h1>Bones Hunt 🦴</h1>
-            <button id="start-game" onclick="game.startGame()"> Start</button>
-            <button id="restart" onclick="window.location.reload();">Restart</button>
+
+                <div id="buttons">
+                    <button id="start-game-button" class="game-button" onclick="game.startGame()"> Start</button>
+                    <button id="restart-button" class="game-button" onclick="window.location.reload();">Restart</button>
+                </div>
 
         </div>
 
@@ -22,7 +27,9 @@
         </div>
 
         <div id="timer">
-            <p style="display:none;">60</p>
+            <p id="seconds">60</p>
+            <img src="./Images/wasd-buttons.png" alt="">
+            <p>play with this</p>
         </div>
     </div>
     <script src="./JavaScript/logic.js"></script>

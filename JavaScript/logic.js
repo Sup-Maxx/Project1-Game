@@ -20,7 +20,7 @@ class Game {
         this.playChar = player
         this.enemy = skeleton
         this.projectile = arrow
-        this.timer = myTimer
+        count()
 
         //Background Image
         const background = new Image()
@@ -30,10 +30,6 @@ class Game {
             updateCanvas()                
             this.drawPlayer()      
         }
-    } 
-
-    stopGame() {
-        clearInterval(updateCanvas())
     }
 
     // function that draws a character on the canvas
@@ -87,31 +83,7 @@ class Score {
 }
 myScore = new Score("20px", "Arial", 100, 50)
 
-class Timer {
-    constructor(width, height, posX, posY) {
-        this.width = width
-        this.height = height
-        this.posX = posX
-        this.posY = posY
 
-        this.time = 60
-    }
-
-    update() {
-        game.ctx.font = "25px Arial"
-        game.ctx.fillStyle = "black"
-        game.ctx.fillText(this.time, 445, 45)
-    }
-
-    decrement() {
-        setInterval(() => {
-            this.time = seconds
-            seconds--
-        }, 1000);
-    }
-}
-
-let myTimer = new Timer(50,50, 300, 70)
 
 class Live {
     constructor(width, height, posX, posY) {
@@ -179,11 +151,6 @@ class Character {
         if (keys[87] == true) this.speedY = -this.maxSpeed.y; 
         // to the bottom S
         if (keys[83] == true) this.speedY = this.maxSpeed.y; 
-        //start the game with "Enter"
-        if(keys[13] == true) {
-            game.startGame()
-            document.querySelector("h2").style.display="none"
-        }
     }
 
     stopControl() {
@@ -226,6 +193,8 @@ class Character {
             if ((myRight >= shot.posX && myLeft <= shot.posX+5) &&
             (myBottom > shot.posY && myTop < shot.posY+shot.height)
             ) { 
+                clearInterval(timer)
+                stopGame()
                 shot.posY = myTop - shot.height + 15
                 myLives.lives = "You just died 💔 I'm sowwy 😢"
             } 
@@ -297,9 +266,11 @@ class Platform {
 //ground platform
 const platform0 = new Platform(500, 10, 0, 640, "darkgreen")
 
+let gameInterval;
+
 // Update / loop / refresh
 function updateCanvas() { 
-    setInterval(() => {
+    gameInterval = setInterval(() => {
         //cleans the canvas
         game.ctx.clearRect(0, 0, 500, 650)
         //draws a background
@@ -307,8 +278,6 @@ function updateCanvas() {
         //score + lives + timer
         myScore.update()
         myLives.update()
-        //myTimer.update()
-        //myTimer.decrement()
         //canvas Collision check
         player.canvasCollision()
         //player new position + collision check
@@ -325,20 +294,9 @@ function updateCanvas() {
     }, 20)
 } 
 
-let timer 
-let timerElement = document.getElementById("timer")
-
-function count(){
-    let sec = 59
-    timer = setInterval(() => {
-       timerElement.innerHTML = sec 
-       sec--
-       //is it possible to create "continue the count" button?
-    }, 1000);
+function stopGame() {
+    clearInterval(gameInterval)
 }
-
-
-
 
 let keys = [];
 window.addEventListener("keydown", function (e) {
@@ -351,27 +309,27 @@ window.addEventListener("keydown", function (e) {
     player.stopControl()
   });
 
+  let timer 
+  let timerElement = document.getElementById("seconds")
+
+  function count() {
+    let sec = 60
+    timer = setInterval(() => {
+        timerElement.innerHTML = sec
+        sec--
+
+        if (sec < 0) {
+            clearInterval(timer)
+            stopGame()
+        }
+    }, 1000);    
+  }
+
+
 window.onload = () => {
     document.getElementById("start-game").onclick = () => {
         document.querySelector("h2").style.display="none";
-        document.querySelector("p").style.display="block";
+        stopGame()
         game.startGame()
-        count()
-        
     }  
-}
-
-/* decrement() {
-        let seconds =
-        setInterval(() => {
-            this.time = seconds
-            seconds--
-        }, 1000);
-    } */
-
-function checkGameOver() {
-    
-    if (killCollision() == true) {
-        game.stop()
-    }
 }
