@@ -313,7 +313,7 @@ window.addEventListener("keydown", function (e) {
   let timerElement = document.getElementById("seconds")
 
   function count() {
-    let sec = 60
+    let sec = 59
     timer = setInterval(() => {
         timerElement.innerHTML = sec
         sec--
