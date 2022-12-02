@@ -1,9 +1,5 @@
-//     <canvas id="canvas" width="500" height="650"></canvas>
-
-canvasWidth = canvas.width
-canvasHeight = canvas.height
-
-let seconds = 60 
+canvasWidth = canvas.width // 500
+canvasHeight = canvas.height // 650
 
 class Game {
     constructor() {
@@ -32,8 +28,8 @@ class Game {
         }
     }
 
-    // function that draws a character on the canvas
-    drawPlayer() {  
+    drawPlayer() { // function that draws a character 
+
         this.ctx.drawImage(
             this.playChar.img,
             this.playChar.posX,
@@ -43,7 +39,7 @@ class Game {
         )
     } 
 
-    drawEnemy() {
+    drawEnemy() { // function that draws a skeleton
         this.ctx.drawImage(
             this.enemy.img,
             this.enemy.posX,
@@ -53,7 +49,7 @@ class Game {
         )
     }
 
-    drawProjectile() {
+    drawProjectile() { // function that draws an arrow
         this.ctx.drawImage(
             this.projectile.img,
             this.projectile.posX,
@@ -82,8 +78,6 @@ class Score {
     } 
 }
 myScore = new Score("20px", "Arial", 100, 50)
-
-
 
 class Live {
     constructor(width, height, posX, posY) {
@@ -119,7 +113,7 @@ class Character {
         //acceleration + gravity
         this.gravity = 0.5
         this.velocity = {x: 0, y: 1,}
-        // pulls character image - 2 
+    
         this.img = this.drawCharacter()
     }
 
@@ -127,6 +121,7 @@ class Character {
             this.posX += this.speedX;
             this.posY += this.speedY;
 
+            //lines for the character gravity
             //Velocity + gravity + acceleration
             //this.posX += this.velocity.x
            /*  this.posY += this.velocity.y
@@ -196,7 +191,6 @@ class Character {
                 myLives.lives = "You just died 💔 I'm sowwy 😢"
                 clearInterval(timer)
                 stopGame()
-                shot.posY = myTop - shot.height + 15
             } 
         }
     }
@@ -275,17 +269,16 @@ function updateCanvas() {
         game.ctx.clearRect(0, 0, 500, 650)
         //draws a background
         game.ctx.drawImage(game.bg, -200, -150, 800, 850)
-        //score + lives + timer
+        //score + lives
         myScore.update()
         myLives.update()
-        //canvas Collision check
-        player.canvasCollision()
         //player new position + collision check
-        player.enemyCollision(skeleton) //✅
+        player.canvasCollision()
+        player.enemyCollision(skeleton)
         player.newPosition()
         arrow.newPosition()
         player.killCollision(arrow)
-        // draws everything on canvas
+        // draws prop's on canvas
         game.drawPlayer()
         game.drawEnemy()
         game.drawProjectile()
@@ -295,7 +288,6 @@ function updateCanvas() {
 } 
 
 function stopGame() {
-    myLives.lives = "Time's out. Game Over 🏁"
     clearInterval(gameInterval)
 }
 
@@ -311,6 +303,7 @@ window.addEventListener("keydown", function (e) {
   });
 
   let timer 
+  let seconds = 60 
   let timerElement = document.getElementById("seconds")
 
   function count() {
@@ -320,17 +313,16 @@ window.addEventListener("keydown", function (e) {
         sec--
 
         if (sec < 0) {
+            myLives.lives = "Time's out. Game Over 🏁"
             clearInterval(timer)
             stopGame()
         }
     }, 1000);    
   }
 
-
 window.onload = () => {
     document.getElementById("start-game").onclick = () => {
         document.querySelector("h2").style.display="none";
-        stopGame()
         game.startGame()
     }  
 }
