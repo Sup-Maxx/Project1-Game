@@ -193,10 +193,10 @@ class Character {
             if ((myRight >= shot.posX && myLeft <= shot.posX+5) &&
             (myBottom > shot.posY && myTop < shot.posY+shot.height)
             ) { 
+                myLives.lives = "You just died 💔 I'm sowwy 😢"
                 clearInterval(timer)
                 stopGame()
                 shot.posY = myTop - shot.height + 15
-                myLives.lives = "You just died 💔 I'm sowwy 😢"
             } 
         }
     }
@@ -295,6 +295,7 @@ function updateCanvas() {
 } 
 
 function stopGame() {
+    myLives.lives = "Time's out. Game Over 🏁"
     clearInterval(gameInterval)
 }
 
