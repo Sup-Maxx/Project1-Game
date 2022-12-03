@@ -190,7 +190,9 @@ class Character {
             ) { 
                 myLives.lives = "You just died 💔 I'm sowwy 😢"
                 clearInterval(timer)
-                stopGame()
+                setTimeout(() => {
+                    stopGame()
+                }, 50);
             } 
         }
     }
@@ -315,7 +317,9 @@ window.addEventListener("keydown", function (e) {
         if (sec < 0) {
             myLives.lives = "Time's out. Game Over 🏁"
             clearInterval(timer)
-            stopGame()
+            setTimeout(() => {
+                stopGame()
+            }, 50);
         }
     }, 1000);    
   }
