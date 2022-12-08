@@ -139,20 +139,20 @@ class Character {
 
     moveControl() { //✅
         // to the right D
-        if (keys[68] == true) this.speedX = this.maxSpeed.x; 
+        if (keys[39] == true) this.speedX = this.maxSpeed.x; 
         // to the left A
-        if (keys[65] == true) this.speedX = -this.maxSpeed.x;
+        if (keys[37] == true) this.speedX = -this.maxSpeed.x;
         // to the top W
-        if (keys[87] == true) this.speedY = -this.maxSpeed.y; 
+        if (keys[38] == true) this.speedY = -this.maxSpeed.y; 
         // to the bottom S
-        if (keys[83] == true) this.speedY = this.maxSpeed.y; 
+        if (keys[40] == true) this.speedY = this.maxSpeed.y; 
     }
 
     stopControl() {
-        if (keys[68] == false) this.speedX = this.speed.x
-        if (keys[65] == false) this.speedX = this.speed.x
-        if (keys[87] == false) this.speedY = this.speed.y
-        if (keys[83] == false) this.speedY = this.speed.y
+        if (keys[39] == false) this.speedX = this.speed.x
+        if (keys[37] == false) this.speedX = this.speed.x
+        if (keys[38] == false) this.speedY = this.speed.y
+        if (keys[40] == false) this.speedY = this.speed.y
     }
 
     canvasCollision() { //✅ 
